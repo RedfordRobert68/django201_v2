@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %} Changed the title of the homepage{% endblock %}
+{% block body %}
+    {% for post in posts %}
+        {{ post.text }} written on {{ post.date }}
+        <hr>
+    {% endfor %}
+{% endblock %}
