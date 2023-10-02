@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth.account', 
     'allauth.socialaccount',
     'sorl.thumbnail',
+    'crispy_forms', 
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -164,3 +166,6 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

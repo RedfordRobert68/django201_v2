@@ -1,9 +1,15 @@
+from django import forms
 from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
 from django.views.generic import DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseBadRequest
-from followers.models import Follower
+from django.contrib import messages
 from feed.models import Post
+from followers.models import Follower
+from .models import Profile
+from .forms import UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.decorators import login_required
 
 class ProfileDetailView(DetailView):
     http_method_names = ["get"]
@@ -13,11 +19,18 @@ class ProfileDetailView(DetailView):
     slug_field = "username"
     slug_url_kwarg = "username"
 
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         user = self.get_object()
         context = super().get_context_data(**kwargs)
         context['total_posts'] = Post.objects.filter(author=user).count()
-        # context['total_followers'] = ...
+        context['total_followers'] = Follower.objects.filter(following=user).count()
+        # context['is_following'] = Follower.objects.filter(followed_by=user).count()
+        if self.request.user.is_authenticated:
+            context['you_follow'] = Follower.objects.filter(following=user, followed_by=self.request.user).exists()
         return context
 
 class FollowView(LoginRequiredMixin, View):
@@ -59,3 +72,27 @@ class FollowView(LoginRequiredMixin, View):
             'success': True,
             'wording': "Unfollow" if data['action'] == "follow" else "Follow"
         })
+    
+@login_required
+def profile(request):
+    if request.method == "POST":
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('feed:index')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+    }
+
+    return render(request, 'profiles/profile.html', context)

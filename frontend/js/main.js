@@ -61,6 +61,7 @@ $(document).on("click", ".js-submit", function(e) {
             $("#posts-container").prepend(dataHTML);
             $btn.prop("disabled", true).text("New Post");
             $(".js-post-text").val("") //Remove text in the field after "Create Post" button has been selected
+            location.reload(true);
            
         },
         error: (error)=> {
@@ -86,6 +87,7 @@ $(document).on("click", ".js-follow", function(e) {
         },
         success: (data) => {
             $(".js-follow-text").text(data.wording)
+            location.reload(true);
 
             if(action == "follow") {
                 $(this).attr("data-action", "unfollow")
@@ -97,4 +99,57 @@ $(document).on("click", ".js-follow", function(e) {
             console.warn(error)
         }
     });
-}) 
+})
+
+/********************************************
+Toggle full comment
+********************************************/
+
+$(document).ready(function(){
+    var x = document.getElementById("rm");
+    $('.rm-js').click(function(){
+        $(this).toggleClass('rm-js');
+        $(this).text($(this).text() == 'Read less' ? 'Read more' : 'Read less');
+        $(this).parent().find('.rm1').toggleClass('block');
+        $(this).parent().find('.rm2').toggleClass('hidden');
+    }); 
+});
+
+
+/*************************************************** 
+Remove duplicate friends by class names
+****************************************************/
+$(document).ready(function(){
+    var elem = {};
+    $('div#friend').each(function() {
+        var txt = $(this).attr('class');
+        if (elem[txt])
+            $(this).remove();
+        else
+            elem[txt] = true;
+    });
+}); 
+
+
+/*****************************************************
+Menu Toggle
+******************************************************/
+$(document).ready(function(){
+    $('#menu-toggle').on("click", function(){
+        $('#navigation').toggleClass('hidden');
+        $('.overlay').toggleClass('hidden');
+        $('.hamburger').toggleClass('hidden');
+        $('.closeBtn').toggleClass('hidden');
+    });
+});
+
+
+
+
+
+
+
+
+
+
+    

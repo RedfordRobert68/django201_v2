@@ -1,9 +1,22 @@
 {% extends "base.html" %}
-{% block title %} Changed the title of the homepage{% endblock %}
+{% block title %} 
+    Today I Learned 
+{% endblock %}
 {% block body %}
-    <div id="posts-container">
-        {% for post in posts %}
-            {% include "includes/post.html" with post=post show_detail_link=True %}
-        {% endfor %}
-    </div>
+    {% include "includes/header.html" %}
+    {% if request.user.is_authenticated %}
+        <div id="posts-container">
+            <!-- {% if request.user.is_authenticated %} -->
+            {% for post in posts %}
+                {% include "includes/post.html" with post=post show_detail_link=True %}
+            {% endfor %}
+            <!-- {% endif %} -->
+        </div>
+    {% else %} 
+        <h3 class="text-lg font-semibold text-center bg-black rounded-2xl h-12 w-6/12 m-auto text-white pt-2 max-w-md">
+            <a href="{% url 'account_login' %}" class="w-full float-left">
+                Login 
+            </a>
+        </h3>
+    {% endif %}
 {% endblock %}

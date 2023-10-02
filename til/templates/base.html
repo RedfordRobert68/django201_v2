@@ -4,56 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} Default Title{% endblock %}</title>
+    <title>{% block title %}Today I Learned{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- component from https://tailwindcomponents.com/component/sidebar-navigation -->
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
 </head>
 <body>
+    <div class="overlay hidden">
+
+    </div>
     <div class="min-h-screen flex flex-row bg-gray-100">
-        <div class="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden">
-            <div class="flex items-center justify-center h-20 shadow-md">
-            <h1 class="text-3xl uppercase text-indigo-500">TIL</h1>
+        {% if request.user.is_authenticated %}
+            <div id="menu-toggle">
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="closeBtn hidden">
+                    <h1 class="text-lg font-bold text-center">
+                        X
+                    </h1>
+                </div>
             </div>
-            <ul class="flex flex-col py-4">
-                <li>
-                    <a href="/" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-home"></i></span>
-                        <span class="text-sm font-medium">Home</span>
-                    </a>
-                </li>
+        {% endif %}
+        <div id="navigation" class="flex flex-col bg-white overflow-hidden hidden">
+            <!-- <div class="flex items-center justify-center h-20 shadow-md">
+                <h1 class="text-3xl uppercase text-indigo-500">TIL</h1>
+            </div> -->
+            <ul class="flex flex-col py-4 mt-10">
                 {% if request.user.is_authenticated %}
                     <li>
-                        <a href="{% url 'feed:new_post' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800 js-toggle-modal">
-                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                                <i class="bx bxs-message-add"></i>
+                        <a href="/" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-black-500 hover:text-black-800">
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-black-400"><i class="bx bx-conversation"></i></span>
+                            <span class="text-2xl font-bold">FEED</span>
+                        </a>
+                    </li>
+                    <li class="myFriends-js">
+                        <a href="{% url 'feed:friends_post' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-black-500 hover:text-black-800">
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-black-400">
+                                <i class="bx bxs-face"></i>
                             </span>
-                            <span class="text-sm font-medium">
-                                New Post
+                            <span class="text-2xl font-bold">
+                                MY FRIENDS
                             </span>
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'account_logout' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-log-out"></i></span>
-                        <span class="text-sm font-medium">Logout</span>
+                        <a href="{% url 'feed:new_post' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-black-500 hover:text-black-800 js-toggle-modal">
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-black-400">
+                                <i class="bx bxs-message-alt-add"></i>
+                            </span>
+                            <span class="text-2xl font-bold">
+                                NEW POST
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'profile_update' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-black-500 hover:text-black-800">
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-black-400">
+                                <i class="bx bxs-user-detail"></i>
+                            </span>
+                            <span class="text-2xl font-bold">
+                                MY PROFILE
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'account_logout' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-black-500 hover:text-black-800">
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-black-400"><i class="bx bx-log-out"></i></span>
+                        <span class="text-2xl font-bold">LOGOUT</span>
                         </a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{% url 'account_login' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"><i class="bx bx-log-out"></i></span>
-                        <span class="text-sm font-medium">Login</span>
+                        <a href="{% url 'account_login' %}" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-black-500 hover:text-black-800">
+                        <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-black-400"><i class="bx bx-log-out"></i></span>
+                        <span class="text-2xl font-bold">LOGIN</span>
                         </a>
                     </li>
                 {% endif %}
             </ul>
         </div>
-        <div class="p-16">
+        <div class="w-full">
             {% block body %}
                 {% block content %}
-                
+
                 {% endblock %}
             {% endblock %}
         </div>

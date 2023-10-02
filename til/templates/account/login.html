@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load account socialaccount %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    {% include "includes/header.html" %}
+    <h1 class="text-2xl text-center font-bold">
+        SIGN IN
+    </h1>
+    <p class="text-center">
+        {% block signup %}
+            If you have not created an account, <a class="font-bold underline" href="{{ signup_url }}">sign up</a>.
+        {% endblock %} 
+
+    </p>
+
+    <form method="POST" action="{% url 'account_login' %}" class="login">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+        {% endif %}
+        <button class="primaryAction text-white font-semibold" type="submit">
+            Sign in
+        </button>
+        <p class="text-center">
+            <a href="{% url 'account_reset_password' %}" class="button secondaryAction font-bold underline">
+                Forgot password?
+            </a>
+        </p>
+    </form>
+
+{% endblock content %}

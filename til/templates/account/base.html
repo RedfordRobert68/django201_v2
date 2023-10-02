@@ -2,16 +2,18 @@
 
 {% block body %}
 
-    {% if messages %}
-    <div>
-        <strong>Messages</strong>
-        <ul>
-            {% for message in messages %}
-                <li>{{message}}</li>
-            {% endfor %}
-        </ul>
+    <!-- {% if messages %}
+        <div>
+            <strong>Messages</strong>
+            <ul>
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %} -->
+    <div class="jumbotron jumbotron-fluid p-4 rounded">
+        {% block content %}
     </div>
-    {% endif %}
-    {% block content %}
     {% endblock %}
 {% endblock %}

@@ -9,5 +9,5 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
 
-    def __str__(self): # Every method in on a Python class takes "self" as its first parameter
-        return self.text[0:100] #Limit post title to 100 characters
+    def __str__(self): 
+        return self.text[0:100]

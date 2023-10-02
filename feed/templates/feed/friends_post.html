@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Changed the title of the homepage{% endblock %}
+{% block body %}
+    {% include "includes/header.html" %}
+    <div id="posts-container" class="max-w-4xl px-10 my-4 py-6 bg-white rounded-lg shadow-md post-box">
+        <h2 class="font-bold text-2xl text-center">
+            MY FRIENDS
+        </h2>
+        {% for post in posts %}   
+            {% include "includes/friends_postview.html" with post=post show_detail_link=False %}
+        {% endfor %}
+    </div>
+{% endblock %}
