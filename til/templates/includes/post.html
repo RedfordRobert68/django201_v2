@@ -24,7 +24,7 @@ Post Component
             
             <a href="{% url 'profiles:detail' post.author.username %}">
                 {% thumbnail post.author.profile.image "373x373" crop="center" as im %}
-                    <img class="object-cover rounded-full sm:block profile-pic" src="{{ im.url }} " alt="avatar">
+                    <img class="object-cover rounded-full sm:block profile-pic" src="{{ im.url }}" alt="avatar" onError="this.onerror=null;this.src='/media/profiles/default_bg.jpg';" >
                 {% endthumbnail %}
             </a>
             <span class="block rm1 text-base w-9/12">{{ post.text|truncatechars:50 }}</span>

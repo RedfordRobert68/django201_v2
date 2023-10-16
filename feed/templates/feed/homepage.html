@@ -3,9 +3,8 @@
     Today I Learned 
 {% endblock %}
 {% block body %}
-    {% include "includes/header.html" %}
     {% if request.user.is_authenticated %}
-        <div id="posts-container">
+        <div id="posts-container" class="pt-4">
             <!-- {% if request.user.is_authenticated %} -->
             {% for post in posts %}
                 {% include "includes/post.html" with post=post show_detail_link=True %}
@@ -13,7 +12,7 @@
             <!-- {% endif %} -->
         </div>
     {% else %} 
-        <h3 class="text-lg font-semibold text-center bg-black rounded-2xl h-12 w-6/12 m-auto text-white pt-2 max-w-md">
+        <h3 class="text-lg font-semibold text-center bg-black rounded-2xl h-12 w-6/12 m-auto text-white mt-10 pt-2 max-w-md">
             <a href="{% url 'account_login' %}" class="w-full float-left">
                 Login 
             </a>

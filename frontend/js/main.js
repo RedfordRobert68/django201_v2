@@ -34,7 +34,12 @@ Modal Toggle
 ************************************************/
 $(document).on("click", ".js-toggle-modal", function(e) {
     e.preventDefault()
-    $(".js-modal").toggleClass("hidden")
+    $(".js-modal").toggleClass("hidden");
+})
+
+$(document).on("click", ".close-btn-js", function(e) {
+    e.preventDefault()
+    $('.overlay, .js-modal').addClass("hidden");
 })
 
 $(document).on("click", ".js-submit", function(e) {
@@ -136,11 +141,19 @@ Menu Toggle
 ******************************************************/
 $(document).ready(function(){
     $('#menu-toggle').on("click", function(){
-        $('#navigation').toggleClass('hidden');
-        $('.overlay').toggleClass('hidden');
-        $('.hamburger').toggleClass('hidden');
-        $('.closeBtn').toggleClass('hidden');
+        $('#navigation, .overlay, .hamburger, .closeBtn, header').toggleClass('hidden');
+        $('#posts-container').toggleClass('fixed');
     });
+
+    $('.new-post-js').on("click", function(){
+        $('#navigation, .overlay, .closeBtn').addClass('hidden');
+        $('.overlay_newPost').toggleClass("hidden");
+    });
+
+    $('.close-btn-js').on("click", function() {
+        $('header, .overlay_newPost, .hamburger').toggleClass("hidden");
+        $('#posts-container').toggleClass('fixed');
+    })
 });
 
 

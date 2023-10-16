@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load thumbnail %}
 {% load crispy_forms_tags %}
 
 {% load i18n %}
@@ -9,11 +9,10 @@
 {% endblock %}
 
 {% block content %}
-    {% include "includes/header.html" %}
     <h1 class="text-2xl text-center font-bold">
         Sign up
     </h1>
-    <p class="text-center">
+    <p class="text-center mb-5">
         Already have an account? Then please <a href="{{ login_url }}" class="font-bold underline">sign in</a>.
     </p>
     <form action="{% url 'account_signup' %}" id="signup_form" class="signup" method="post">
@@ -22,6 +21,11 @@
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
+        <div class="flex justify-center -mt-8">
+            {% thumbnail user.profile.image "100x100" crop="center" as im %}
+                <img src="https://i.imgur.com/CbsGGVp.jpg" class="rounded-full border-solid border-white mt-4">
+            {% endthumbnail %}	
+          </div>
         <button type="submit" class="primaryAction text-white font-semibold">
             Sign up
         </button>   

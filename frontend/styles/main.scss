@@ -8,7 +8,11 @@ header {
     width: 100%;
     height: 120px;
     padding-top: 30px;
-    margin-bottom: 40px;
+    position: fixed;
+
+    @media screen and (max-width: 390px) {
+        height: 100px;
+    }
 
     h1 {
         font-size: 40px;
@@ -18,7 +22,12 @@ header {
         }
 
         @media screen and (max-width: 390px) {
-            margin-top: 25px;
+            margin-top: 15px;
+        }
+
+        @media screen and (max-width: 300px) {
+            font-size: 28px;
+            margin-top: 20px;
         }
     }
 }
@@ -32,8 +41,8 @@ header {
 }
 
 #menu-toggle {
-    width: 40px;
-    height: 26px;
+    width: 30px;
+    height: 16px;
     position: fixed;
     top: 20px;
     right: 40px;
@@ -49,7 +58,7 @@ header {
 
     .hamburger div {
         background-color: #000;
-        height: 8px;
+        height: 5px;
         margin-bottom: 5px;
 
         :nth-child(3) {
@@ -62,6 +71,18 @@ header {
         height: 40px;
         border-radius: 20px;
         border: solid 5px #000;
+        background-color: #fff;
+        position: fixed;
+        top: 15px;
+        right: 50px;
+
+        @media screen and (max-width: 999px) {
+            right: 35px;
+        }
+
+        @media screen and (max-width: 499px) {
+            right: 15px;
+        }
     }
 
 }
@@ -71,18 +92,46 @@ header {
 }
 
 #navigation{
-    width: 100%;
-    position: absolute;
+    width: 50%;
+    position: fixed;
+    top: 20%;
+    left: 25%;
     z-index: 100;
     box-shadow: 0 10px 5px rgba(0, 0, 0, .3);
+
+    @media screen and (max-width: 999px) {
+        width: 70%;
+        left: 15%;
+    }
+
+    @media screen and (max-width: 499px) {
+        width: 90%;
+        left: 5%;
+    }
 }
 
-.overlay {
+.overlay, .overlay_newPost {
     width: 100%;
     height: 100vh;
     position: absolute;
     z-index: 99;
     background-color: rgba(0, 0, 0, .7);
+}
+
+#div_id_username, #div_id_first_name, #div_id_last_name, #div_id_email, #div_id_image{
+    font-weight: bold;
+}
+
+.form-group {
+
+    .btn{
+        background-color: #000;
+        font-weight: bold;
+        border: none;
+        width: 100%;
+        display: block;
+        margin: 10px auto 50px;
+    }
 }
 
 form.login, form.signup{
@@ -120,6 +169,10 @@ form.login, form.signup{
 
 }
 
+#hint_id_username{
+    color: red;
+}
+
 div.alert {
     margin-bottom: 10px;
 
@@ -152,4 +205,44 @@ div.alert {
 
 .bx {
     font-size: 28px;
+}
+
+.new-post-modal {
+    z-index: 100;
+    width: 100%;
+    top: 20%;
+    left: 25%;
+    
+    @media screen and (max-width: 999px) {
+        width: 150%;
+        left: 12%;
+    }
+}
+
+.js-submit{
+    width: 50%;
+
+    @media screen and (max-width: 330px){
+        width: 75%;
+    }
+}
+
+.closeBtn-post {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: solid 5px #000;
+    background-color: #fff;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    // @media screen and (max-width: 999px) {
+    //     right: 35px;
+    // }
+
+    // @media screen and (max-width: 499px) {
+    //     right: 15px;
+    // }
 }

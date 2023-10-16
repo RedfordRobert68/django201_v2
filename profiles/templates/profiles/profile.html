@@ -2,37 +2,34 @@
 {% load thumbnail %}
 
 {% load crispy_forms_tags %}
-{% block title %}{{ user.username }}{% endblock title %}
+
+{% block title %}
+  Update Profile
+{% endblock title %}
 
 {% block body %}
-
-<div class="jumbotron jumbotron-fluid p-4 rounded">
-    <div class="container">
-      <h1 class="display-4 mb-6">Profile Update</h1>
-      <hr>
-      <p class="lead">
-        <form action="" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <fieldset class="form-group">
-              <legend class="border-bottom mb-4">
-                  Profile Info
-              </legend>
-              {{ u_form|crispy }}
-              {{ p_form|crispy }}
-              <div class="form-group">
-                  <button class="btn btn-primary" type="submit">
-                      Update
-                  </button>
-              </div>
-          </fieldset>
-        </form>
-      </p>
-      <div class="flex justify-center -mt-8">
-        {% thumbnail user.profile.image "100x100" crop="center" as im %}
-            <img src="{{ im.url }}" class="rounded-full border-solid border-white border-2 -mt-3">
-        {% endthumbnail %}	
-    </div>
-    </div>
+  <div class="max-w-4xl block m-auto bg-white p-3 rounded">
+    <h1 class="display-4 mb-6 text-center text-2xl font-bold">
+      Profile Update
+    </h1>
+    <form action="{% url 'profile_update' %}" method="post" class="form-control myForm" enctype="multipart/form-data" style="background-color: transparent; border: none;">
+      {% csrf_token %}
+      <fieldset class="form-group">
+          {{ u_form|crispy }}
+          {{ p_form|crispy }}
+          
+          <div class="flex justify-center -mt-8">
+            {% thumbnail user.profile.image "100x100" crop="center" as im %}
+                <img src="{{ im.url }}" class="rounded-full border-solid border-white mt-4" style="max-width: 100px;" onError="this.onerror=null;this.src='/media/profiles/default_bg.jpg';">
+            {% endthumbnail %}	
+          </div>
+          <div class="form-group">
+              <button class="btn btn-primary" type="submit">
+                  Update
+              </button>
+          </div>
+      </fieldset>
+    </form>
   </div>
 
 {% endblock body %}

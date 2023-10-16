@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block content %}
-    {% include "includes/header.html" %}
     <h1 class="text-2xl text-center font-bold">
         SIGN IN
     </h1>
@@ -17,7 +16,6 @@
         {% block signup %}
             If you have not created an account, <a class="font-bold underline" href="{{ signup_url }}">sign up</a>.
         {% endblock %} 
-
     </p>
 
     <form method="POST" action="{% url 'account_login' %}" class="login">

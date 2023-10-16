@@ -8,7 +8,18 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username','first_name','last_name','email']
+
+    
+    # def __init__(self, *args, **kwargs):
+    #     super(UserUpdateForm, self).__init__(*args, **kwargs)
+    #     self.fields['first_name'].label = False
+    #     self.fields['last_name'].label = False
+
+    #     for field_name in self.fields:
+    #         field = self.fields.get('first_name')
+    #         field.widget.attrs['placeholder'] = 'First Name'
+    #         # field.label = 'first_name'
 
 class ProfileUpdateForm(forms.ModelForm):
     
